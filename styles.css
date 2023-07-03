@@ -1,67 +1,112 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+
+:root {
+  --primary-color: #22254b;
+  --secondary-color: #373b69;
+}
+
+* {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
+
 body {
-  font-family: sans-serif;
-  min-height: 100vh;
-  width: 100%;
+  background-color: var(--primary-color);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+header {
+  padding: 1rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0,213,255,1);
-  font-family: 'poppins';
+  justify-content: flex-end;
+  background-color: var(--secondary-color);
 }
-.calculator {
-  height: 350px;
-  width: 400px;
-  padding: 50px;
-  background-color: #0A2647;
-  border-radius: 20px;
-  text-align: center;
+
+.search {
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  border-radius: 50px;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  color: #fff;
+}
+
+.search::placeholder {
+  color: #7378c5;
+}
+
+.search:focus {
+  outline: none;
+  background-color: var(--primary-color);
+}
+
+main {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  row-gap: 1rem;
 }
-.calculator input {
-  width: 100%;
-  margin-bottom: 10px;
+
+.movie {
+  width: 300px;
+  margin: 1rem;
+  background-color: var(--secondary-color);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
 }
-.btn-gruop{
+
+.movie img {
   width: 100%;
+}
+
+.movie-info {
+  color: #eee;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap:0.2rem;
+  padding: 0.5rem 1rem 1rem;
+  letter-spacing: 0.5px;
 }
-input[type='text'],
-button,
-#result{
-  border: none;
-  border-radius: .5rem;
-  font-size: 1.2rem;
-  padding: .5rem;
+
+.movie-info h3 {
+  margin-top: 0;
 }
-button{
-  padding: .5rem 1.5rem;
+
+.movie-info span {
+  background-color: var(--primary-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
   font-weight: bold;
 }
-#result{
-  width: 100%;
+
+.movie-info span.green {
+  color: lightgreen;
+}
+
+.movie-info span.orange {
+  color: orange;
+}
+
+.movie-info span.red {
+  color: red;
+}
+
+.overview {
   background-color: #fff;
-}
-
-.attribute{
+  padding: 2rem;
   position: absolute;
-  bottom: 10px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  max-height: 100%;
+  transform: translateY(101%);
+  overflow-y: auto;
+  transition: transform 0.3s ease-in;
 }
 
-@media (max-width:768px) {
-  .calculator{
-      width: 300px;
-  }
+.movie:hover .overview {
+  transform: translateY(0);
 }
