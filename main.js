@@ -1,65 +1,66 @@
-const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=1'
-const IMG_PATH = 'https://image.tmdb.org/t/p/w1280'
-const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&query="'
+// API URL constants
+const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=e34531e9e4f0b5df5eda2c7b50a32d27&page=1';
+const IMG_PATH = 'https://image.tmdb.org/t/p/w1280';
+const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=e34531e9e4f0b5df5eda2c7b50a32d27&query="';
 
-const main = document.getElementById('main')
-const form = document.getElementById('form')
-const search = document.getElementById('search')
+const searchForm = document.getElementById('search-form');
+const searchInput = document.getElementById('search-input');
+const movieContainer = document.getElementById('movie-container');
 
-// Get initial movies
-getMovies(API_URL)
-
+// Fetch movies from API
 async function getMovies(url) {
-    const res = await fetch(url)
-    const data = await res.json()
-
-    showMovies(data.results)
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.log('Error:', error);
+    // Handle error gracefully, show error message to the user, etc.
+  }
 }
 
+// Display movies in the UI
 function showMovies(movies) {
-    main.innerHTML = ''
+  movieContainer.innerHTML = '';
 
-    movies.forEach((movie) => {
-        const { title, poster_path, vote_average, overview } = movie
+  movies.forEach((movie) => {
+    const { title, poster_path, vote_average, overview } = movie;
 
-        const movieEl = document.createElement('div')
-        movieEl.classList.add('movie')
+    const movieElement = document.createElement('div');
+    movieElement.classList.add('movie');
 
-        movieEl.innerHTML = `
-            <img src="${IMG_PATH + poster_path}" alt="${title}">
-            <div class="movie-info">
-          <h3>${title}</h3>
-          <span class="${getClassByRate(vote_average)}">${vote_average}</span>
-            </div>
-            <div class="overview">
-          <h3>Overview</h3>
-          ${overview}
-        </div>
-        `
-        main.appendChild(movieEl)
-    })
+    movieElement.innerHTML = `
+      <img src="${IMG_PATH + poster_path}" alt="${title}">
+      <div class="movie-info">
+        <h3>${title}</h3>
+        <span class="rating">${vote_average}</span>
+      </div>
+      <div class="overview">
+        <h3>Overview:</h3>
+        ${overview}
+      </div>
+    `;
+
+    movieContainer.appendChild(movieElement);
+  });
 }
 
-function getClassByRate(vote) {
-    if(vote >= 8) {
-        return 'green'
-    } else if(vote >= 5) {
-        return 'orange'
-    } else {
-        return 'red'
-    }
-}
+// Handle form submission
+searchForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const searchTerm = searchInput.value.trim();
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault()
+  if (searchTerm) {
+    getMovies(SEARCH_API + searchTerm)
+      .then((movies) => showMovies(movies))
+      .catch((error) => console.log('Error:', error));
+    searchInput.value = '';
+  } else {
+    // Handle empty search term
+  }
+});
 
-    const searchTerm = search.value
-
-    if(searchTerm && searchTerm !== '') {
-        getMovies(SEARCH_API + searchTerm)
-
-        search.value = ''
-    } else {
-        window.location.reload()
-    }
-})
+// Initial page load: Fetch and display popular movies
+getMovies(API_URL)
+  .then((movies) => showMovies(movies))
+  .catch((error) => console.log('Error:', error));
