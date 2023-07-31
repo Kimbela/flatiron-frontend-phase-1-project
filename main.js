@@ -2,7 +2,8 @@
 //const API_KEY = e34531e9e4f0b5df5eda2c7b50a32d27
 const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=e34531e9e4f0b5df5eda2c7b50a32d27&page=1';
 const IMG_PATH = 'https://image.tmdb.org/t/p/w1280';
-const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=e34531e9e4f0b5df5eda2c7b50a32d27&query="';
+const SEARCH_API ='https://api.themoviedb.org/3/search/movie?api_key=e34531e9e4f0b5df5eda2c7b50a32d27&query="';
+
 
 // References to DOM elements
 const searchForm = document.getElementById('search-form');
@@ -10,17 +11,16 @@ const searchInput = document.getElementById('search-input');
 const movieContainer = document.getElementById('movie-container');
 
 // Fetch movies from API
-async function getMovies(url) {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.results;
-  } catch (error) {
-    console.log('Error:', error);
-    // Handle error gracefully, show error message to the user, etc.
-  }
-}
 
+function getMovies(url) {
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => data.results)
+    .catch(error => {
+      console.log('Error:', error);
+      
+    });
+}
 // Display movies in the UI
 function showMovies(movies) {
   movieContainer.innerHTML = '';
@@ -66,3 +66,11 @@ searchForm.addEventListener('submit', (e) => {
 getMovies(API_URL)
   .then((movies) => showMovies(movies))
   .catch((error) => console.log('Error:', error));
+
+  // Add event listener to change font button
+changeFontButton.addEventListener('click', () => {
+  // Modify the font properties here as per your requirements
+  document.body.style.fontFamily = 'Arial, sans-serif';
+  document.body.style.fontSize = '16px';
+  // You can modify other font properties here (e.g., font-weight, color, etc.)
+});
