@@ -68,6 +68,8 @@ getMovies(API_URL)
   .catch((error) => console.log('Error:', error));
 
   // Add event listener to change font button
+  const changeFontButton = document.getElementById('changeFontButton');
+
 changeFontButton.addEventListener('click', () => {
   // Modify the font properties here as per your requirements
   document.body.style.fontFamily = 'Arial, sans-serif';
