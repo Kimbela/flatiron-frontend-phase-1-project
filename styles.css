@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -39,4 +39,63 @@ h1 {
 
 .movie .overview {
   margin-top: 10px;
+} */
+
+/* Font */
+body {
+  font-family: 'Open Sans', sans-serif; /* Replace with the Google Font you like */
+  margin: 0;
+  padding: 0;
+  background-color: #183d5e; /* Light blue background color */
 }
+
+/* Header Style */
+header {
+  background: linear-gradient(to right, #333, #555);
+  color: #fff;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Search Input Style */
+#search-input {
+  padding: 10px;
+  font-size: 16px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Movie Container Style */
+.movie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Movie Image Style */
+.movie img {
+  width: 200px;
+  border-radius: 8px;
+}
+
+/* Movie Info and Overview Style */
+.movie .movie-info {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.movie .overview {
+  margin-top: 15px;
+  font-size: 12px;
+  color: #555;
+}
+
